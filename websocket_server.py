@@ -28,6 +28,8 @@ async def message_sender(websocket):
                 # Clean up the string to be valid JSON
                 json_str = raw_str.replace("'", '"')
 
+                print(json_str)
+
                 # Parse to dict
                 message = json.loads(json_str)
 
