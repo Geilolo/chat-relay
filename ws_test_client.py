@@ -1,8 +1,16 @@
 import asyncio
 import websockets
+import os
 
-async def test_ws():
-    uri = "ws://localhost:8765"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+WS_HOST = os.getenv('WS_HOST')
+WS_PORT = int(os.getenv('WS_PORT'))
+
+async def test_ws():  
+    uri = "ws://" + WS_HOST + ":" + f"{WS_PORT}"
     async with websockets.connect(uri) as websocket:
         print("Connected.")
         try:

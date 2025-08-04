@@ -14,6 +14,9 @@ r = redis.Redis(
     db=int(os.getenv("REDIS_DB"))
 )
 
+WS_HOST = os.getenv('WS_HOST')
+WS_PORT = int(os.getenv('WS_PORT'))
+
 connected_clients = set()
 
 async def message_sender(websocket):
@@ -51,8 +54,8 @@ async def handler(websocket):
         connected_clients.remove(websocket)
 
 async def main():
-    async with websockets.serve(handler, "0.0.0.0", 8765):
-        print("WebSocket server running on ws://0.0.0.0:8765")
+    async with websockets.serve(handler, WS_HOST, WS_PORT):
+        print("WebSocket server running on ws://%s:%d" % (WS_HOST, WS_PORT))
         await asyncio.Future()  # run forever
 
 if __name__ == "__main__":
